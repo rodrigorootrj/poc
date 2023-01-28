@@ -1,0 +1,17 @@
+version: '3'
+services:
+  worker:
+    image: worker:1
+    command: ["python", "/opt/app/worker.py"]
+    env_file:
+      - config/.env
+    links:
+      - redis
+  redis:
+    image: redis
+    ports:
+      - "26379:26379"
+    environment:
+      - MASTER_NAME=mymaster
+      - MASTER_PASSWORD=mypass
+      - REQUIRE_PASS=mypass
